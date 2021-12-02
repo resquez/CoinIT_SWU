@@ -1,0 +1,75 @@
+Organizations:         
+
+    - &OrdererOrg
+        Name: OrdererOrg
+        ID: OrdererOrg
+        MSPDir: crypto-config/ordererOrganizations/swu.com/msp
+
+    - &Admin1Org
+        Name: Admin1Org
+        ID: Admin1Org
+        MSPDir: crypto-config/peerOrganizations/admin1.swu.com/msp
+        AnchorPeers:
+            - Host: peer0.admin1.swu.com
+              Port: 7051
+
+    - &Student1Org
+        Name: Student1Org
+        ID: Student1Org
+        MSPDir: crypto-config/peerOrganizations/student1.swu.com/msp
+        AnchorPeers:
+            - Host: peer0.student1.swu.com
+              Port: 7051
+
+    - &Sales1Org
+        Name: Sales1Org
+        ID: Sales1Org
+        MSPDir: crypto-config/peerOrganizations/sales1.swu.com/msp
+        AnchorPeers:
+            - Host: peer0.sales1.swu.com
+              Port: 7051
+
+Orderer: &OrdererDefaults               
+
+    OrdererType: kafka
+    Addresses:
+        - orderer1.swu.com:7050
+        - orderer2.swu.com:7050
+    BatchTimeout: 2s
+    BatchSize:
+        MaxMessageCount: 10
+        AbsoluteMaxBytes: 99 MB
+        PreferredMaxBytes: 512 KB
+    Kafka:
+        Brokers:
+            - kafka1.swu.com:9092
+            - kafka2.swu.com:9092
+            - kafka3.swu.com:9092
+            - kafka4.swu.com:9092
+
+    Organizations:
+
+Application: &ApplicationDefaults
+    Organizations:
+    
+Profiles:                         
+
+    OrdererGenesis:
+        Orderer:
+            <<: *OrdererDefaults
+            Organizations:
+                - *OrdererOrg
+        Consortiums:
+            SampleConsortium:
+                Organizations:
+                    - *Admin1Org
+                    - *Student1Org
+                    - *Sales1Org
+    Channel1:
+        Consortium: SampleConsortium
+        Application:
+            <<: *ApplicationDefaults
+            Organizations:
+                - *Admin1Org
+                - *Student1Org
+                - *Sales1Org

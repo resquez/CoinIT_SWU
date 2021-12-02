@@ -1,0 +1,83 @@
+{
+    "name": "basic-network",
+    "version": "1.0.0",
+    "client": {
+        "organization": "Admin1",
+        "connection": {
+            "timeout": {
+                "peer": {
+                    "endorser": "300"
+                },
+                "orderer": "300"
+            }
+        }
+    },
+    "channels": {
+        "channelswu1": {
+            "orderers": [
+                "orderer1.swu.com"
+            ],
+            "peers": {
+                "peer0.admin1.swu.com": {}
+            }
+        }
+    },
+    "organizations": {
+        "Admin1": {
+            "mspid": "Admin1Org",
+            "peers": [
+                "peer0.admin1.swu.com"
+            ],
+            "certificateAuthorities": [
+                "ca.admin1.swu.com"
+            ],
+            "adminPrivateKey": {
+                "path":"../../basic-network/crypto-config/peerOrganizations/admin1.swu.com/users/Admin@admin1.swu.com/msp/keystore/0e427a419ed57c23e52f83dba25108fb12c92fa010096e638412cad76ebfcb86_sk"
+            },
+            "signedCert":{
+                "path":"../../basic-network/crypto-config/peerOrganizations/admin1.swu.com/users/Admin@admin1.swu.com/msp/signcerts/Admin@admin1.swu.com-cert.pem"
+            }
+        }
+    },
+    "orderers": {
+        "orderer1.swu.com": {
+            "url": "grpc://localhost:7050",
+            "grpcOptions":{
+                "ssl-target-name-override":"orderer1.swu.com",
+                "grpc-max-send-message-length": -1
+            },
+            "tlsCACerts": {
+                "path": "../../basic-network/crypto-config/ordererOrganizations/swu.com/orderers/orderer1.swu.com/msp/tlscacerts/tlsca.swu.com-cert.pem"
+            }
+        }
+    },
+    "peers": {
+        "peer0.admin1.swu.com": {
+            "url": "grpc://localhost:7051",
+            "tlsCACerts": {
+                "path": "../../basic-network/crypto-config/peerOrganizations/admin1.swu.com/peers/peer0.admin1.swu.com/msp/tlscacerts/tlsca.admin1.swu.com-cert.pem"
+            },
+            "grpcOptions": {
+                "ssl-target-name-override": "peer1.admin1.swu.com",
+                "hostnameOverride": "peer1.admin1.swu.com"
+            }
+        }
+    },
+    "certificateAuthorities": {
+        "ca.admin1.swu.com": {
+            "url": "http://localhost:7054",
+            "caName": "ca.admin1.swu.com",
+            "tlsCACerts": {
+                "path": "../../basic-network/crypto-config/peerOrganizations/admin1.swu.com/ca/ca.admin1.swu.com-cert.pem"
+            },
+            "registrar":{
+                "enrollId": "admin",
+                "enrollSecret": "adminpw",
+                "caName": "caadmin1"
+            },
+            "httpOptions": {
+                "verify": false
+            }
+        }
+    }
+}

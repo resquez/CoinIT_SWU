@@ -1,0 +1,25 @@
+{
+ "name": "coin-it-swu",
+ "version": "1.0.0",
+ "description": "Hyperledger Fabric Based SWU Mileage Application",
+ "main": "server.js",
+ "dependencies": {
+  "angular": "^1.4.3",
+  "body-parser": "latest",
+  "ejs": "latest",
+  "express": "latest",
+  "fabric-ca-client": "^1.4.0",
+  "fabric-client": "^1.4.0",
+  "fabric-network": "~1.4.0",
+  "grpc": "^1.9.1",
+  "node-gyp": "^8.4.1"
+ },
+ "license": "Apache-2.0",
+ "keywords": [
+  "Hyperledger",
+  "Fabric",
+  "SWU",
+  "Coin",
+  "Application"
+ ]
+}
